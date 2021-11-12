@@ -1,0 +1,9 @@
+[
+  {"pathId": 11, "pathStrategyProgram": "abb", "nextPathId": 0,"questionIdList": [11,12]},
+  {"pathId": 12, "pathStrategyProgram": "abc", "nextPathId": 0,"questionIdList": [11,12]},
+  {"pathId": 13, "pathStrategyProgram": "abd", "nextPathId": 0,"questionIdList": [11,12]},
+  {"pathId": 14, "pathStrategyProgram": "abe", "nextPathId": 0,"questionIdList": [11,12]},
+  {"pathId": 15, "pathStrategyProgram": "abf", "nextPathId": 0,"questionIdList": [11,12]},
+  {"pathId": 16, "pathStrategyProgram": "abg", "nextPathId": 0,"questionIdList": [11,12]},
+  {"pathId": 17, "pathStrategyProgram": "abh", "nextPathId": 0,"questionIdList": [11,12]}
+]
