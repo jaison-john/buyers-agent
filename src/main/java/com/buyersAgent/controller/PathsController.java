@@ -12,7 +12,7 @@ public class PathsController {
 	@Autowired
 	private PathService pathService;
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
+	@GetMapping(value = "/{id}", produces = "application/json")
 	public Path getPath(@PathVariable("id") long id) {
 		return pathService.getPath(id);
 	}

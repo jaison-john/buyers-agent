@@ -25,15 +25,10 @@ public class QuestionControllerTest extends BuyersAgentMainApplicationTest {
     }
 
     @Test
-    public void dummyTest() throws Exception {
-
-    }
-
-    @Test
     public void testQuestionsGet() throws Exception {
-        mockMvc.perform(get("/question/12")).andExpect(status().isOk())
+        mockMvc.perform(get("/question/1003")).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
-                .andExpect(jsonPath("$.questionId").value("12")).andExpect(jsonPath("$.questionDetails").value("abc"))
+                .andExpect(jsonPath("$.questionId").value("1003")).andExpect(jsonPath("$.questionDetails").value("Q 1003"))
                 .andExpect(jsonPath("$.answers[0]").value("11"));
 
     }

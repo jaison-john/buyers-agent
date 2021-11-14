@@ -1,8 +1,11 @@
 package com.buyersAgent.service;
 
 import com.buyersAgent.model.Path;
+import com.buyersAgent.model.Question;
 
 public interface PathService {
-    public Path getPath(long id);
+    Path getPath(long pathId);
+
+    Question getNexQuestion(long pathId, long currentQuestionId);
 
 }

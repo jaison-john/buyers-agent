@@ -1,9 +1,7 @@
 [
-  {"pathId": 11, "pathStrategyProgram": "abb", "nextPathId": 0,"questionIdList": [11,12]},
-  {"pathId": 12, "pathStrategyProgram": "abc", "nextPathId": 0,"questionIdList": [11,12]},
-  {"pathId": 13, "pathStrategyProgram": "abd", "nextPathId": 0,"questionIdList": [11,12]},
-  {"pathId": 14, "pathStrategyProgram": "abe", "nextPathId": 0,"questionIdList": [11,12]},
-  {"pathId": 15, "pathStrategyProgram": "abf", "nextPathId": 0,"questionIdList": [11,12]},
-  {"pathId": 16, "pathStrategyProgram": "abg", "nextPathId": 0,"questionIdList": [11,12]},
-  {"pathId": 17, "pathStrategyProgram": "abh", "nextPathId": 0,"questionIdList": [11,12]}
+  {"pathId": 11, "pathStrategyProgram": "abb", "nextPathId": 12,"questionIdList": [1001,1002]},
+  {"pathId": 12, "pathStrategyProgram": "abc", "nextPathId": 13,"questionIdList": [1003,1004]},
+  {"pathId": 13, "pathStrategyProgram": "abd", "nextPathId": 14,"questionIdList": [1005,1006]},
+  {"pathId": 14, "pathStrategyProgram": "abe", "nextPathId": 0,"questionIdList": [1007,1008]},
+  {"pathId": 15, "pathStrategyProgram": "abf", "nextPathId": 0,"questionIdList": [1009,1010]}
 ]

@@ -64,17 +64,16 @@ public class PathServiceImpl implements PathService {
 
         logger.debug("Loaded {} Paths.. ",pathMap.size());
 
-        return;
     }
 
 
     @Override
-    public Path getPath(long id) {
-        Path path = pathMap.get(id);
+    public Path getPath(long pathId) {
+        Path path = pathMap.get(pathId);
 
         //Link Questions if not done earlier
         synchronized (path) {
-            if (path.getQuestionList().size() != 0)
+            if (!path.getQuestionList().isEmpty())
                 return path;
 
             for (Long questionId : path.getQuestionIdList()) {
@@ -83,6 +82,23 @@ public class PathServiceImpl implements PathService {
             }
         }
         return path;
+    }
+
+    @Override
+    public Question getNexQuestion(long pathId, long currentQuestionId) {
+        Path path = pathMap.get(pathId);
+
+        boolean getNextQuestionId = false;
+        for (Long questionId : path.getQuestionIdList()) {
+            if(getNextQuestionId){
+                return questionService.getQuestion(questionId);
+            }
+            if(currentQuestionId == questionId){
+                getNextQuestionId = true;
+            }
+        }
+
+        return null;//This is case where path has ended!
     }
 
 }

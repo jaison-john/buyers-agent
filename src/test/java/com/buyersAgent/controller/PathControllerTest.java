@@ -23,16 +23,11 @@ public class PathControllerTest extends BuyersAgentMainApplicationTest {
     }
 
     @Test
-    public void dummyTest() throws Exception {
-
-    }
-
-    @Test
     public void testQuestionsGet() throws Exception {
         mockMvc.perform(get("/path/12")).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$.pathId").value("12")).andExpect(jsonPath("$.pathStrategyProgram").value("abc"))
-                .andExpect(jsonPath("$.questionIdList[0]").value("11"));
+                .andExpect(jsonPath("$.questionIdList[0]").value("1003"));
 
     }
 }
