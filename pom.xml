@@ -3,7 +3,8 @@
   <groupId>com.jaison</groupId>
   <artifactId>buyers-agent</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  
+
+  <packaging>war</packaging>
   
   <parent>
 		<groupId>org.springframework.boot</groupId>
@@ -14,6 +15,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<bootstrap.version>4.6.1</bootstrap.version>
 	</properties>
 
 	<dependencies>
@@ -66,6 +68,22 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>${bootstrap.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>webjars-locator</artifactId>
+			<version>0.41</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 	</dependencies>
