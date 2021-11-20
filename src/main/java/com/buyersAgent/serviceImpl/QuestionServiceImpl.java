@@ -52,17 +52,12 @@ public class QuestionServiceImpl implements QuestionService {
 
                 questionMap.put(questionObj.getQuestionId(),questionObj);
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
+        } catch (IOException|ParseException e) {
+            logger.error("Failed parsing",e);
         }
 
         logger.debug("Loaded {} Questions.. ",questionMap.size());
 
-        return;
     }
 
     @Override

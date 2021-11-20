@@ -16,7 +16,7 @@ import java.util.Map;
 public class InteractionServiceImpl implements InteractionService {
 
     private static final Logger logger = LogManager.getLogger(InteractionServiceImpl.class);
-    private Map<Long,Interaction> interactionMap = new HashMap<>();
+    private final Map<Long,Interaction> interactionMap = new HashMap<>();
     private long lastInteractionId=0;
 
     @Autowired
@@ -43,6 +43,7 @@ public class InteractionServiceImpl implements InteractionService {
 
         //TODO
         //TODO - Clip out the History!
+        logger.debug("New Interaction with Id {} started! ",interaction.getInteractionId());
 
         return interaction;
     }
@@ -61,10 +62,7 @@ public class InteractionServiceImpl implements InteractionService {
         Interaction interaction = interactionMap.get(interactionUpdate.getInteractionId());
         Path currentPath = pathService.getPath(interaction.getCurrentPathId());
 
-        logger.debug("updateInteractionByQuestion Loop start" +  interactionUpdate.getAnswerBeanList().size());
-
         for(AnswerBean answerBean:interactionUpdate.getAnswerBeanList()){
-            logger.debug("answerBean.getAnswer() " + answerBean.getAnswer());
             interaction.setLastHistoryId(interaction.getLastHistoryId() + 1);
             InteractionHistory interactionHistory = new InteractionHistory();
             interactionHistory.setInteractionId(interactionUpdate.getInteractionId());
@@ -85,7 +83,6 @@ public class InteractionServiceImpl implements InteractionService {
         else{
             //TODO - Build the Program-based logic!
         }
-
 
         return interaction;
     }

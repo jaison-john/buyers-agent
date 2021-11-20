@@ -16,7 +16,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
@@ -54,12 +53,8 @@ public class PathServiceImpl implements PathService {
 
                 pathMap.put(pathObj.getPathId(),pathObj);
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
+        } catch (IOException | ParseException e) {
+            logger.error("Failed parsing",e);
         }
 
         logger.debug("Loaded {} Paths.. ",pathMap.size());
