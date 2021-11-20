@@ -1,0 +1,18 @@
+[
+  {
+    "actionId": 0,
+    "actionTitle": "string",
+    "actionDetail": "string",
+    "actionCode": "string",
+    "customerActionCriteriaList": [
+      {
+        "actionId": 0,
+        "criteriaId": 0,
+        "questionId": 0,
+        "acceptableAnswer": "string",
+        "acceptableAnswerMin": 0,
+        "acceptableAnswerMax": 0
+      }
+    ]
+  }
+]

@@ -1,11 +1,15 @@
 package com.buyersAgent.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CustomerAction {
 
     private long actionId;
-    private long actionTitle;
-    private long actionDetail;
-    private long actionCode;
+    private String actionTitle;
+    private String actionDetail;
+    private String actionCode;
+    private List<CustomerActionCriteria> customerActionCriteriaList = new ArrayList<>();
 
     public long getActionId() {
         return actionId;
@@ -15,27 +19,35 @@ public class CustomerAction {
         this.actionId = actionId;
     }
 
-    public long getActionTitle() {
+    public String getActionTitle() {
         return actionTitle;
     }
 
-    public void setActionTitle(long actionTitle) {
+    public void setActionTitle(String actionTitle) {
         this.actionTitle = actionTitle;
     }
 
-    public long getActionDetail() {
+    public String getActionDetail() {
         return actionDetail;
     }
 
-    public void setActionDetail(long actionDetail) {
+    public void setActionDetail(String actionDetail) {
         this.actionDetail = actionDetail;
     }
 
-    public long getActionCode() {
+    public String getActionCode() {
         return actionCode;
     }
 
-    public void setActionCode(long actionCode) {
+    public void setActionCode(String actionCode) {
         this.actionCode = actionCode;
+    }
+
+    public List<CustomerActionCriteria> getCustomerActionCriteriaList() {
+        return customerActionCriteriaList;
+    }
+
+    public void setCustomerActionCriteriaList(List<CustomerActionCriteria> customerActionCriteriaList) {
+        this.customerActionCriteriaList = customerActionCriteriaList;
     }
 }
