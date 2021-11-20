@@ -44,8 +44,10 @@ public class QuestionServiceImpl implements QuestionService {
 
                 JSONArray answers = (JSONArray) question.get("answers");
 
-                for (Object c : answers) {
-                    questionObj.getAnswers().add((String)c);
+                if(answers != null){
+                    for (Object c : answers) {
+                        questionObj.getAnswers().add((String)c);
+                    }
                 }
 
                 questionMap.put(questionObj.getQuestionId(),questionObj);

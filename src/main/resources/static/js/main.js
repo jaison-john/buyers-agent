@@ -25,6 +25,7 @@ function startNewConversation(){
 		interactionId = data.interactionId;
 		console.log("interactionId : " + interactionId);
 		$("#startConversation").addClass("d-none");
+		$("#submitPathDiv").removeClass("d-none");
 
 		getPathDetails(data.currentPathId);
     },
@@ -127,10 +128,16 @@ function submitCurrentPathQuestions(){
 	'contentType': 'application/json',
     'success': function(data) {
 
-		interactionId = data.interactionId;
-		console.log("interactionId : " + interactionId);
+		if(data.currentPathId != currentPath.pathId){
+			interactionId = data.interactionId;
+			console.log("interactionId : " + interactionId);
 
-		getPathDetails(data.currentPathId);
+			getPathDetails(data.currentPathId);
+		}
+		else{
+			$("#submitPathDiv").addClass("d-none");
+		}
+
     },
 	error: function (jqXHR, exception) {
 		console.log("Failure in Interaction Update! ");
