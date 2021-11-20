@@ -23,7 +23,7 @@ public class InteractionController {
 		return interactionService.getInteractionDetail(id);
 	}
 
-	@PostMapping(value = "/createInteraction")
+	@PostMapping(value = "/createInteraction.json", produces = "application/json")
 	public Interaction createNew(@RequestBody Long pathId) {
 		return interactionService.createInteraction(pathId);
 	}

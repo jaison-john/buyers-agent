@@ -1,6 +1,7 @@
 package com.buyersAgent.controller;
 
 import com.buyersAgent.BuyersAgentMainApplicationTest;
+import com.buyersAgent.model.AnswerBean;
 import com.buyersAgent.model.InteractionUpdate;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -51,15 +52,17 @@ public class InteractionControllerTest extends BuyersAgentMainApplicationTest {
         Long pathId = 11L;
 
         InteractionUpdate interactionUpdate = createNewInteraction(pathId);
-        interactionUpdate.setAnswer("Abracadabra! ");
+        AnswerBean answerBean = new AnswerBean();
+        answerBean.setQuestionId(1001);
+        answerBean.setAnswer("Abracadabra! ");
+        interactionUpdate.getAnswerBeanList().add(answerBean);
 
-        interactionUpdate = addAnswerToInteraction(interactionUpdate,"11","1002");
-        interactionUpdate.setAnswer("XXYY! ");
+        answerBean = new AnswerBean();
+        answerBean.setQuestionId(1002);
+        answerBean.setAnswer("ZZZ! ");
+        interactionUpdate.getAnswerBeanList().add(answerBean);
 
         interactionUpdate = addAnswerToInteraction(interactionUpdate,"12","1003");
-        interactionUpdate.setAnswer("ZZZ! ");
-
-        interactionUpdate = addAnswerToInteraction(interactionUpdate,"12","1004");
 
         printInteractionDetails(interactionUpdate.getInteractionId());
     }
@@ -70,7 +73,7 @@ public class InteractionControllerTest extends BuyersAgentMainApplicationTest {
 
         logger.debug("PATH ID IS " + requestJson);
 
-        ResultActions resultActions = mockMvc.perform(post("/interaction/createInteraction").contentType(MediaType.APPLICATION_JSON)
+        ResultActions resultActions = mockMvc.perform(post("/interaction/createInteraction.json").contentType(MediaType.APPLICATION_JSON)
                 .content(requestJson));
         resultActions
                 .andExpect(status().isOk())
@@ -124,7 +127,6 @@ public class InteractionControllerTest extends BuyersAgentMainApplicationTest {
         InteractionUpdate interactionUpdate = new InteractionUpdate();
         interactionUpdate.setInteractionId(interactionId);
         interactionUpdate.setPathId(pathId);
-        interactionUpdate.setQuestionId(questionId);
 
         return interactionUpdate;
     }

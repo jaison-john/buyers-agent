@@ -17,6 +17,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-ui/**", "/buyersAgent-openapi/**").permitAll()
                 .anyRequest().permitAll()//.authenticated()
                 .and()
+                .cors().and().csrf().disable()
                 .httpBasic();
     }
 

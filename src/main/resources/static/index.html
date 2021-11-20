@@ -1,19 +1,90 @@
 <html>
 <head>
-    <title>WebJars Demo</title>
+    <title>Buyers Agent!</title>
     <link rel="stylesheet" href="/webjars/bootstrap/4.6.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-<h1>Welcome Home</h1>
-<div class="container"><br/>
+<div class="container">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Buyers Agent!</a>
+
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04" style="">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Conversation</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown04">
+                        <a class="dropdown-item" href="#">Start New! </a>
+                        <a class="dropdown-item" href="#">View Historical</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-md-0">
+                <input class="form-control" type="text" placeholder="Search">
+            </form>
+        </div>
+    </nav>
+
     <div class="alert alert-success">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-        <strong>Success!</strong> It is working as we expected.
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">X</a>
+        <strong>Welcome!</strong> You made the first step in the right direction, as a smart home buyer!
+    </div>
+    <button type="button" id="startConversation" class="btn btn-primary">Start Conversation</button>
+    <div id="interactionContainer" >
+        <div id="dummyDiv" class="d-none">
+            <div id="interactionQuestion_1001" class="form-group row border border-primary rounded">
+                <div class="col-sm-2">
+                </div>
+                <label for="interactionQuestion_1001" class="col-sm-4 col-form-label">Question Details</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="staticEmail" value="email@example.com">
+                </div>
+                <div class="col-sm-2">
+                </div>
+            </div>
+            <div id="interactionQuestion_1002" class="form-group row border border-primary rounded">
+                <div class="col-sm-2">
+                </div>
+                <label for="interactionQuestion_1001" class="col-sm-4 col-form-label">Question Details</label>
+                <div class="col-sm-2">
+                    <select class="custom-select">
+                        <option value=""></option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div id="submitPathDiv" class="row">
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4">
+            <button id="submitPath" type="button" class="btn btn-primary">Submit</button>
+            <button id="restartPath" type="button" class="btn btn-warning">Restart</button>
+        </div>
+        <div class="col-sm-4">
+        </div>
     </div>
 </div>
 
 <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
 <script src="/webjars/bootstrap/4.6.1/js/bootstrap.min.js"></script>
-
+<script src="js/main.js"></script>
 </body>
 </html>

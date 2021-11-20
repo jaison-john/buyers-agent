@@ -1,10 +1,16 @@
 package com.buyersAgent.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class InteractionUpdate {
     private long interactionId;
     private long pathId;
-    private long questionId;
-    private String answer;
+    private List<AnswerBean> answerBeanList;
+
+    public InteractionUpdate(){
+        answerBeanList = new ArrayList<>();
+    }
 
     public long getInteractionId() {
         return interactionId;
@@ -22,19 +28,12 @@ public class InteractionUpdate {
         this.pathId = pathId;
     }
 
-    public long getQuestionId() {
-        return questionId;
+    public List<AnswerBean> getAnswerBeanList() {
+        return answerBeanList;
     }
 
-    public void setQuestionId(long questionId) {
-        this.questionId = questionId;
+    public void setAnswerBeanList(List<AnswerBean> answerBeanList) {
+        this.answerBeanList = answerBeanList;
     }
 
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
 }

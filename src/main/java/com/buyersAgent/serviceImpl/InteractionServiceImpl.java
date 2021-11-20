@@ -61,21 +61,23 @@ public class InteractionServiceImpl implements InteractionService {
         Interaction interaction = interactionMap.get(interactionUpdate.getInteractionId());
         Path currentPath = pathService.getPath(interaction.getCurrentPathId());
 
-        interaction.setLastHistoryId(interaction.getLastHistoryId() + 1);
-        InteractionHistory interactionHistory = new InteractionHistory();
-        interactionHistory.setInteractionId(interactionUpdate.getInteractionId());
-        interactionHistory.setQuestionId(interactionUpdate.getQuestionId());
-        interactionHistory.setPathId(interactionUpdate.getPathId());
-        interactionHistory.setAnswer(interactionUpdate.getAnswer());
-        interactionHistory.setHistoryId(interaction.getLastHistoryId());
+        logger.debug("updateInteractionByQuestion Loop start" +  interactionUpdate.getAnswerBeanList().size());
 
-        interaction.getInteractionHistoryList().add(interactionHistory);
+        for(AnswerBean answerBean:interactionUpdate.getAnswerBeanList()){
+            logger.debug("answerBean.getAnswer() " + answerBean.getAnswer());
+            interaction.setLastHistoryId(interaction.getLastHistoryId() + 1);
+            InteractionHistory interactionHistory = new InteractionHistory();
+            interactionHistory.setInteractionId(interactionUpdate.getInteractionId());
+            interactionHistory.setQuestionId(answerBean.getQuestionId());
+            interactionHistory.setPathId(interactionUpdate.getPathId());
+            interactionHistory.setAnswer(answerBean.getAnswer());
+            interactionHistory.setHistoryId(interaction.getLastHistoryId());
 
-        Question nextQuestion = pathService.getNexQuestion(interactionUpdate.getPathId(),interactionUpdate.getQuestionId());
+            interaction.getInteractionHistoryList().add(interactionHistory);
+        }
 
-        if(nextQuestion != null)
-            interaction.setCurrentQuestionId(nextQuestion.getQuestionId());
-        else if(currentPath.getNextPathId() != 0){//The path has ended, but next path exist!
+
+        if(currentPath.getNextPathId() != 0){//The path has ended, but next path exist!
             interaction.setCurrentPathId(currentPath.getNextPathId());
             currentPath = pathService.getPath(currentPath.getNextPathId());
             interaction.setCurrentQuestionId(currentPath.getQuestionIdList().get(0));

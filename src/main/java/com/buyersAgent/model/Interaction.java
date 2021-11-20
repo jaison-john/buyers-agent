@@ -12,7 +12,7 @@ public class Interaction {
 
     public Interaction(){
         interactionHistoryList = new ArrayList<>();
-        lastHistoryId=1;
+        lastHistoryId=0;
     }
 
     public long getInteractionId() {
