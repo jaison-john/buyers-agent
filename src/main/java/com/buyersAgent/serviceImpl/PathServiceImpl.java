@@ -36,7 +36,7 @@ public class PathServiceImpl implements PathService {
 
         JSONParser parser = new JSONParser();
         try {
-            Resource resource = new ClassPathResource("Paths.json");
+            Resource resource = new ClassPathResource("data/Paths.json");
             JSONArray array = (JSONArray) parser.parse(new InputStreamReader(resource.getInputStream()));
 
             for (Object o : array)

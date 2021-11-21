@@ -1,6 +1,7 @@
 package com.buyersAgent.serviceImpl;
 
 import com.buyersAgent.model.*;
+import com.buyersAgent.service.CustomerActionService;
 import com.buyersAgent.service.InteractionService;
 import com.buyersAgent.service.PathService;
 import com.buyersAgent.service.QuestionService;
@@ -25,6 +26,9 @@ public class InteractionServiceImpl implements InteractionService {
 
     @Autowired
     private PathService pathService;
+
+    @Autowired
+    private CustomerActionService customerActionService;
 
     @Override
     public Interaction createInteraction(long pathId) {
@@ -89,7 +93,7 @@ public class InteractionServiceImpl implements InteractionService {
     }
 
     @Override
-    public List<CustomerAction> getCustomerActions(long interactionId) {
-        return null;
+    public List<CustomerActionMatchStatus> getCustomerActions(long interactionId) {
+        return customerActionService.getPossibleActions(interactionMap.get(interactionId));
     }
 }

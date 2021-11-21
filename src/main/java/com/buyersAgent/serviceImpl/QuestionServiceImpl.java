@@ -29,7 +29,7 @@ public class QuestionServiceImpl implements QuestionService {
 
         JSONParser parser = new JSONParser();
         try {
-            Resource resource = new ClassPathResource("Questions.json");
+            Resource resource = new ClassPathResource("data/Questions.json");
             JSONArray array = (JSONArray) parser.parse(new InputStreamReader(resource.getInputStream()));
 
             for (Object o : array)

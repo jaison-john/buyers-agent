@@ -1,6 +1,7 @@
 package com.buyersAgent.controller;
 
 import com.buyersAgent.model.CustomerAction;
+import com.buyersAgent.model.CustomerActionMatchStatus;
 import com.buyersAgent.model.Interaction;
 import com.buyersAgent.model.InteractionUpdate;
 import com.buyersAgent.service.InteractionService;
@@ -26,8 +27,8 @@ public class InteractionController {
 		return interactionService.getInteractionDetail(id);
 	}
 
-	@GetMapping(value = "/customerActionsOfInteraction/{id}", produces = "application/json")
-	public List<CustomerAction> customerActionsOfInteraction(@PathVariable("id") long id) {
+	@GetMapping(value = "/actionIdsForInteraction/{id}", produces = "application/json")
+	public List<CustomerActionMatchStatus> customerActionsOfInteraction(@PathVariable("id") long id) {
 		return interactionService.getCustomerActions(id);
 	}
 

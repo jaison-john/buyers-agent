@@ -1,6 +1,6 @@
 package com.buyersAgent.service;
 
-import com.buyersAgent.model.CustomerAction;
+import com.buyersAgent.model.CustomerActionMatchStatus;
 import com.buyersAgent.model.Interaction;
 import com.buyersAgent.model.InteractionUpdate;
 
@@ -15,5 +15,5 @@ public interface InteractionService {
 
     Interaction updateInteractionByQuestion(InteractionUpdate interactionUpdate);
 
-    List<CustomerAction> getCustomerActions(long interactionId);
+    List<CustomerActionMatchStatus> getCustomerActions(long interactionId);
 }
