@@ -7,7 +7,7 @@ public class Question {
 
     public enum QuestionType
     {
-        OPTIONS, INTEGER, FLOAT,ATTACH,TEXT;
+        OPTIONS, INTEGER, FLOAT,ATTACH,TEXT,RANK;
     }
 
     private long questionId;

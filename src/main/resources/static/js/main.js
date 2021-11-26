@@ -10,6 +10,10 @@ $(document).ready(function(){
     submitCurrentPathQuestions();
   });
 
+  $("#getActions").click(function(){
+    getCustomerSpecificActions();
+  });
+
 });
 
 function startNewConversation(){
@@ -75,11 +79,15 @@ function getQuestionDetails(questionId){
 
 function clearAndBuildQuestionsOnScreen(){
 
-	$("#interactionContainer").append("<div id='path_" + currentPath.pathId + "' </div>");
+	$("#interactionInnerDiv").append("<div id='path_" + currentPath.pathId + "' class='card' </div>");
+	var pathHtmlId= '#path_' + currentPath.pathId;
+	var prefix = attachPathHtmlPrefix(currentPath.pathId,'abcd');
+	$(pathHtmlId).append(prefix);
 	for(var questionCount=0; questionCount < currentPath.questionIdList.length;questionCount++){
 		console.log("Question Id is  " + currentPath.questionList[questionCount].questionId);
 		populateQuestionOnScreen(currentPath.questionList[questionCount]);
 	}
+	$(pathHtmlId).append(' </div> </div>');
 
 }
 
@@ -97,8 +105,15 @@ function populateQuestionOnScreen(question){
 		controlField = controlField + "</select>";
 	}
 
-	var pathHtmlId= '#path_' + currentPath.pathId;
+	var pathHtmlId= '#path_' + currentPath.pathId + '_body';
 	$(pathHtmlId).append("<div id='interactionQuestion_1002' class='form-group row border border-primary rounded'> <div class='col-sm-2'> </div> <label for='interactionQuestion_1001' class='col-sm-6 col-form-label'>" + question.questionDetails + "</label><div class='col-sm-2'> " + controlField + "</div><div class='col-sm-2'></div></div>");
+}
+
+function attachPathHtmlPrefix(pathId, pathName){
+	var prefix = "<div class='card-header'><button class='btn btn-link' data-toggle='collapse' data-target='#path_" + pathId +  "_collapse'>";
+	prefix = prefix + "<i class='fa fa-plus'></i>" + pathName + " </button></div><div class='collapse show' id='path_" + pathId + "_collapse' data-parent='#interactionInnerDiv'>";
+	prefix = prefix + "<div id='path_" + pathId + "_body' class='card-body'>";
+	return prefix;
 }
 
 function submitCurrentPathQuestions(){
@@ -133,9 +148,11 @@ function submitCurrentPathQuestions(){
 			console.log("interactionId : " + interactionId);
 
 			getPathDetails(data.currentPathId);
+
 		}
 		else{
 			$("#submitPathDiv").addClass("d-none");
+			$("#getActionsDiv").removeClass("d-none");
 		}
 
     },
@@ -143,4 +160,71 @@ function submitCurrentPathQuestions(){
 		console.log("Failure in Interaction Update! ");
     }
   });
+}
+
+
+function getCustomerSpecificActions(){
+	//interactionId = 1;
+	$.ajax({
+    'url': '/interaction/actionIdsForInteraction/' + interactionId,
+    'type': 'get',
+	'contentType': 'application/json',
+    'success': function(data) {
+
+		//Actions List : [{"customerActionId":1,"criteriaCount":2,"foundQuestionCount":2,"foundAnswerMatchCount":1}]
+
+		console.log("Actions List : " + JSON.stringify(data));
+
+		for(var customerActionCount=0; customerActionCount < data.length;customerActionCount++){
+			console.log("Action id is  " + data[customerActionCount].customerActionId);
+			getActionDetailsActions(data[customerActionCount]);
+		}
+    },
+	error: function (jqXHR, exception) {
+		console.log("Failure in getting Actions! ");
+    }
+  });
+}
+
+
+function getActionDetailsActions(customerActionCount){
+	//actionId =1;//Override!
+
+	$.ajax({
+    'url': '/customerAction/' + customerActionCount.customerActionId,
+    'type': 'get',
+	'contentType': 'application/json',
+    'success': function(data) {
+
+		$("#dummyActionsDiv").removeClass("d-none");
+		console.log("Action  Details : " + JSON.stringify(data));
+		buildCustomerActionsOnScreen(data,customerActionCount);
+    },
+	error: function (jqXHR, exception) {
+		console.log("Failure in getting Actions! ");
+    }
+  });
+}
+
+function buildCustomerActionsOnScreen(customerAction,customerActionCount){
+
+	console.log("Action id is  " + customerActionCount.customerActionId);
+
+	$("#dummyActionsDiv").append("<div id='custAction_" + customerAction.actionId + "' class='card' </div>");
+	var custActionHtmlId= '#custAction_' + customerAction.actionId;
+
+	var prefix = "<div class='card-header'><button class='btn btn-link' data-toggle='collapse' data-target='#custAction_" + customerAction.actionId +  "_collapse'>";
+	prefix = prefix + "<i class='fa fa-plus'></i>" + customerAction.actionDetail + " </button></div><div class='collapse show' id='custAction_" + customerAction.actionId + "_collapse' data-parent='#dummyActionsDiv'>";
+	prefix = prefix + "<div id='custAction_" + customerAction.actionId + "_body' class='card-body'>";
+
+	prefix = prefix +  "<div id='actions_div_1002' class='form-group row border border-primary rounded'> <div class='col-sm-2'> </div>";
+	prefix = prefix +  "<div class='col-sm-4'> <textarea id='action_detail_" + customerActionCount.customerActionId
+	+ "' type='text' class='md-textarea form-control' rows='3'>" + customerAction.actionDetail + "</textarea> ";
+    prefix = prefix +  "</div><div class='col-sm-4'></div><div class='col-sm-2'>" + customerActionCount.criteriaCount
+	+ "/" + customerActionCount.foundQuestionCount +"/"+ customerActionCount.foundAnswerMatchCount + "</div></div> ";
+
+
+	$(custActionHtmlId).append(prefix);
+	$(custActionHtmlId).append(' </div> </div>');
+
 }

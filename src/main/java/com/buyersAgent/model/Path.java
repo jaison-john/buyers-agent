@@ -7,6 +7,7 @@ public class Path {
 
     private long pathId;
     private List<Long> questionIdList;
+    private String pathCaption;
     private String pathStrategyProgram;
     private long nextPathId;
     private List<Question> questionList;
@@ -54,5 +55,13 @@ public class Path {
 
     public void setQuestionList(List<Question> questionList) {
         this.questionList = questionList;
+    }
+
+    public String getPathCaption() {
+        return pathCaption;
+    }
+
+    public void setPathCaption(String pathCaption) {
+        this.pathCaption = pathCaption;
     }
 }
