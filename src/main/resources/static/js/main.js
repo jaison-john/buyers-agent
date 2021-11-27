@@ -81,7 +81,7 @@ function clearAndBuildQuestionsOnScreen(){
 
 	$("#interactionInnerDiv").append("<div id='path_" + currentPath.pathId + "' class='card' </div>");
 	var pathHtmlId= '#path_' + currentPath.pathId;
-	var prefix = attachPathHtmlPrefix(currentPath.pathId,'abcd');
+	var prefix = attachPathHtmlPrefix(currentPath.pathId,currentPath.pathCaption);
 	$(pathHtmlId).append(prefix);
 	for(var questionCount=0; questionCount < currentPath.questionIdList.length;questionCount++){
 		console.log("Question Id is  " + currentPath.questionList[questionCount].questionId);

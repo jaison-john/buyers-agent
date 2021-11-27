@@ -44,55 +44,55 @@
     <button type="button" id="startConversation" class="btn btn-primary">Start Conversation</button>
     <div class="container-fluid" id="interactionContainer" >
         <div id="interactionInnerDiv" class="accordion">
-            <!--
-                <div class="card" >
-                    <div class="card-header">
-                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne">
-                            <i class="fa fa-plus"></i> Path #1
-                        </button>
-                    </div>
-                    <div class="collapse show" id="collapseOne" data-parent="#interactionInnerDiv">
-                        <div class="card-body">
-                            <div id="interactionQuestion_1001" class="form-group row border border-primary rounded">
-                                <div class="col-sm-2">
-                                </div>
-                                <label for="interactionQuestion_1001" class="col-sm-4 col-form-label">Question Details</label>
-                                <div class="col-sm-2">
-                                    <input type="text" class="form-control" id="staticEmail" value="email@example.com">
-                                </div>
-                                <div class="col-sm-2">
-                                </div>
+
+            <div class="card" >
+                <div class="card-header">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne">
+                        <i class="fa fa-plus"></i> Path #1
+                    </button>
+                </div>
+                <div class="collapse show" id="collapseOne" data-parent="#interactionInnerDiv">
+                    <div class="card-body">
+                        <div id="interactionQuestion_1001" class="form-group row border border-primary rounded">
+                            <div class="col-sm-2">
                             </div>
-                            <div id="interactionQuestion_1002" class="form-group row border border-primary rounded">
-                                <div class="col-sm-2">
-                                </div>
-                                <label for="interactionQuestion_1002" class="col-sm-4 col-form-label">Question Details</label>
-                                <div class="col-sm-2">
-                                    <select class="custom-select">
-                                        <option value=""></option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-2">
-                                </div>
+                            <label for="interactionQuestion_1001" class="col-sm-4 col-form-label">Question Details</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="staticEmail" value="email@example.com">
+                            </div>
+                            <div class="col-sm-2">
+                            </div>
+                        </div>
+                        <div id="interactionQuestion_1002" class="form-group row border border-primary rounded">
+                            <div class="col-sm-2">
+                            </div>
+                            <label for="interactionQuestion_1002" class="col-sm-4 col-form-label">Question Details</label>
+                            <div class="col-sm-2">
+                                <select class="custom-select">
+                                    <option value=""></option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-header">
-                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo">
-                            <i class="fa fa-plus"></i> Path #2
-                        </button>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo">
+                        <i class="fa fa-plus"></i> Path #2
+                    </button>
+                </div>
+                <div class="collapse show" id="collapseTwo" data-parent="#interactionInnerDiv">
+                    <div class="card-body">
+                        This is the collapsible content for the first accordion panel.
                     </div>
-                    <div class="collapse show" id="collapseTwo" data-parent="#interactionInnerDiv">
-                        <div class="card-body">
-                            This is the collapsible content for the first accordion panel.
-                        </div>
-                    </div>
-                </div> -->
+                </div>
+            </div>
         </div>
 
     </div>
@@ -175,17 +175,38 @@
 <script src="js/main.js"></script>
 <script>
 $(document).ready(function(){
+	$("#interactionInnerDiv").on("click", ".btn.btn-link", function(e) {
+		console.log("Button hooked got clicked!!");
+		if($(this).attr("aria-expanded") == "true"){
+			console.log("minus to plus!!");
+			$(this).children(":first").removeClass("fa-minus").addClass("fa-plus");
+		}
+		else {//if($(this).children(":first").find(".fa.fa-plus"))
+			console.log("find everybody else who are in munus and set to plus, as they will be closed!!");
+			$("#interactionInnerDiv").find(".fa.fa-minus").removeClass("fa-minus").addClass("fa-plus");
+			console.log("plus to minus!!");
+			$(this).children(":first").removeClass("fa-plus").addClass("fa-minus");
+		}
+
+	});
+	/*
+   console.log("Triggered hooked!!");
   //Add a minus icon to the collapse element that is open by default
-  	$('.collapse.show').each(function(){
+  //$('#interactionInnerDiv .collapse.show') to $('#interactionInnerDiv').find('.collapse.show')
+  	$('#interactionInnerDiv').find('.collapse.show').each(function(){
+		console.log("Trigger show!");
 		$(this).parent().find(".fa").removeClass("fa-plus").addClass("fa-minus");
     });
 
   //Toggle plus/minus icon on show/hide of collapse element
-	$('.collapse').on('shown.bs.collapse', function(){
+  //$('#interactionInnerDiv .collapse') to $('#interactionInnerDiv').find('.collapse')
+	$('#interactionInnerDiv').find('.collapse').on('shown.bs.collapse', function(){
+		console.log("Trigger Collapse!");
 		$(this).parent().find(".fa").removeClass("fa-plus").addClass("fa-minus");
 	}).on('hidden.bs.collapse', function(){
+		console.log("Trigger Hide-Collapse!");
 		$(this).parent().find(".fa").removeClass("fa-minus").addClass("fa-plus");
-	});
+	});*/
 });
 </script>
 </body>
