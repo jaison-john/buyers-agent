@@ -5,6 +5,7 @@ import com.buyersAgent.service.CustomerActionService;
 import com.buyersAgent.service.InteractionService;
 import com.buyersAgent.service.PathService;
 import com.buyersAgent.service.QuestionService;
+import com.buyersAgent.strategy.PathExecutionStrategy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,17 +80,87 @@ public class InteractionServiceImpl implements InteractionService {
             interaction.getInteractionHistoryList().add(interactionHistory);
         }
 
+        //Check if the current-step ending-strategy would tell the next Path
+        if(loadNextPathFromStrategy(currentPath,interaction)){
+            return interaction;
+        }
 
         if(currentPath.getNextPathId() != 0){//The path has ended, but next path exist!
             interaction.setCurrentPathId(currentPath.getNextPathId());
             currentPath = pathService.getPath(currentPath.getNextPathId());
             interaction.setCurrentQuestionId(currentPath.getQuestionIdList().get(0));
         }
-        else{
-            //TODO - Build the Program-based logic!
-        }
+
+        //Check by executing the Skip-Logic of the next loaded path - to see if
+        //it directs to a different path.
+        loadSkipPathFromStrategy(currentPath,interaction);
 
         return interaction;
+    }
+
+    //Executed at the start of a PATH - to see if we need to skip the path. If negative - the
+    private boolean loadSkipPathFromStrategy(Path nextPath, Interaction interaction){
+        if(nextPath.getPathStrategyProgram() == null || nextPath.getPathStrategyProgram().isEmpty()){
+            return false;//No Strategy based flow!
+        }
+
+        String programName = nextPath.getPathStrategyProgram();
+        logger.info("loadSkipPathFromStrategy - Path strategy program : {} ",programName);
+        PathExecutionStrategy pathExecutionStrategy = createObject(programName);
+        pathExecutionStrategy.initProgram(nextPath.getPathStrategyProgramInitData());
+        pathExecutionStrategy.loadPreviousAnswers(interaction.getInteractionHistoryList());
+
+
+        //Check if the Strategy suggest skipping the whole path - As part of loading itself!
+        long nextNextPathId = pathExecutionStrategy.skipCurrentPathTo();
+        if(nextNextPathId != -1){
+            interaction.setCurrentPathId(nextNextPathId);
+            nextPath = pathService.getPath(nextNextPathId);
+            interaction.setCurrentQuestionId(nextPath.getQuestionIdList().get(0));
+        }
+        else{
+            return false;
+        }
+
+        return true;
+    }
+
+    //Executed at the end of a Path - to find the next Path
+    private boolean loadNextPathFromStrategy(Path currentPath, Interaction interaction){
+        if(currentPath.getPathStrategyProgram() == null || currentPath.getPathStrategyProgram().isEmpty()){
+            return false;//No Strategy based flow!
+        }
+
+        String programName = currentPath.getPathStrategyProgram();
+        logger.info("loadNextPathFromStrategy - Path strategy program : {} ",programName);
+        PathExecutionStrategy pathExecutionStrategy = createObject(programName);
+        pathExecutionStrategy.initProgram(currentPath.getPathStrategyProgramInitData());
+        pathExecutionStrategy.loadPreviousAnswers(interaction.getInteractionHistoryList());
+
+
+        //Check if the Strategy gives the next path - As part of loading itself!
+        long nextPath = pathExecutionStrategy.getNexPath();
+        if(nextPath!= -1){
+            interaction.setCurrentPathId(nextPath);
+            currentPath = pathService.getPath(nextPath);
+        }
+        else{
+            return false;
+        }
+        interaction.setCurrentQuestionId(currentPath.getQuestionIdList().get(0));
+
+        return true;
+    }
+
+    private PathExecutionStrategy createObject(String whichClass) {
+        try {
+            Class<?> clazz = Class.forName(whichClass);
+            return (PathExecutionStrategy) clazz.newInstance();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            logger.error(e);
+        }
+
+        return null;
     }
 
     @Override

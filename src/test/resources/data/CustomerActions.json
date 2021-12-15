@@ -1,0 +1,26 @@
+[
+  {
+    "actionId": 1,
+    "actionTitle": "title of Action 1",
+    "actionDetail": "detail of Action 1",
+    "actionCode": "abc",
+    "customerActionCriteriaList": [
+      {
+        "actionId": 1,
+        "criteriaId": 1,
+        "questionId": 1001,
+        "acceptableAnswer": "11",
+        "acceptableAnswerMin": 0,
+        "acceptableAnswerMax": 0
+      },
+      {
+        "actionId": 1,
+        "criteriaId": 2,
+        "questionId": 1002,
+        "acceptableAnswer": "11",
+        "acceptableAnswerMin": 22,
+        "acceptableAnswerMax": 44
+      }
+    ]
+  }
+]

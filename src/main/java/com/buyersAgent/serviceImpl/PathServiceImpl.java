@@ -46,6 +46,9 @@ public class PathServiceImpl implements PathService {
                 pathObj.setPathId((Long) path.get("pathId"));
                 pathObj.setNextPathId((Long) path.get("nextPathId"));
                 pathObj.setPathStrategyProgram((String) path.get("pathStrategyProgram"));
+                pathObj.setPossibleSkipToPaths((String) path.get("possibleSkipToPaths"));
+                pathObj.setPossibleNextPaths((String) path.get("possibleNextPaths"));
+                pathObj.setPathStrategyProgramInitData((String) path.get("pathStrategyProgramInitData"));
                 pathObj.setPathCaption((String) path.get("pathCaption"));
                 JSONArray questionIdList = (JSONArray) path.get("questionIdList");
                 for (Object c : questionIdList) {

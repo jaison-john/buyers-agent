@@ -9,6 +9,9 @@ public class Path {
     private List<Long> questionIdList;
     private String pathCaption;
     private String pathStrategyProgram;
+    private String pathStrategyProgramInitData;
+    private String possibleNextPaths;
+    private String possibleSkipToPaths;
     private long nextPathId;
     private List<Question> questionList;
 
@@ -63,5 +66,29 @@ public class Path {
 
     public void setPathCaption(String pathCaption) {
         this.pathCaption = pathCaption;
+    }
+
+    public String getPossibleNextPaths() {
+        return possibleNextPaths;
+    }
+
+    public void setPossibleNextPaths(String possibleNextPaths) {
+        this.possibleNextPaths = possibleNextPaths;
+    }
+
+    public String getPossibleSkipToPaths() {
+        return possibleSkipToPaths;
+    }
+
+    public void setPossibleSkipToPaths(String possibleSkipToPaths) {
+        this.possibleSkipToPaths = possibleSkipToPaths;
+    }
+
+    public String getPathStrategyProgramInitData() {
+        return pathStrategyProgramInitData;
+    }
+
+    public void setPathStrategyProgramInitData(String pathStrategyProgramInitData) {
+        this.pathStrategyProgramInitData = pathStrategyProgramInitData;
     }
 }

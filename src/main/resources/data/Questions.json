@@ -1,12 +1,43 @@
 [
-  {"questionId": 1001, "questionDetails": "Q 1001", "questionType": "INTEGER","answers": ["11","22"]},
-  {"questionId": 1002, "questionDetails": "Q 1002", "questionType": "INTEGER"},
-  {"questionId": 1003, "questionDetails": "Q 1003", "questionType": "INTEGER","answers": ["11","22"]},
-  {"questionId": 1004, "questionDetails": "Q 1004", "questionType": "TEXT"},
-  {"questionId": 1005, "questionDetails": "Q 1005", "questionType": "INTEGER","answers": ["11","22"]},
-  {"questionId": 1006, "questionDetails": "Q 1006", "questionType": "INTEGER","answers": ["11","22"]},
-  {"questionId": 1007, "questionDetails": "Q 1007", "questionType": "INTEGER","answers": ["11","22"]},
-  {"questionId": 1008, "questionDetails": "Q 1008", "questionType": "INTEGER","answers": ["11","22"]},
-  {"questionId": 1009, "questionDetails": "Q 1009", "questionType": "INTEGER","answers": ["11","22"]},
-  {"questionId": 1010, "questionDetails": "Q 1010", "questionType": "INTEGER","answers": ["11","22"]}
+
+  {"questionId": 1001, "questionDetails": "Hey..I'm Carla, your digital Buying agent...May I know your Email address for signing up with Find Your First Home ?", "questionType": "TEXT"},
+  {"questionId": 1002, "questionDetails": "Please choose a password with minimum 6 charactors, alphanumeric. ", "questionType": "TEXT"},
+  {"questionId": 1003, "questionDetails": "May I know your first name", "questionType": "TEXT"},
+  {"questionId": 1004, "questionDetails": "And, last name?", "questionType": "TEXT"},
+  {"questionId": 1005, "questionDetails": "Are you buying with your partner?", "questionType": "TEXT","answers": ["Yes","No"]},
+
+  {"questionId": 1006, "questionDetails": "Please provide your spouses first name... ", "questionType": "TEXT"},
+  {"questionId": 1007, "questionDetails": "Please provide your spouses last name...", "questionType": "TEXT"},
+
+  {"questionId": 1008, "questionDetails": "Are u a first home buyer, moving to a new house or investor?", "questionType": "TEXT","answers": ["First Home Buyer","Moving to a new house","Investor"]},
+  {"questionId": 1009, "questionDetails": "What are your preferred suburbs? Please give list of codes", "questionType": "TEXT"},
+
+  {"questionId": 1010, "questionDetails": "What is the price range you are looking to buy?", "questionType": "INTEGER"},
+  {"questionId": 1011, "questionDetails": "How much deposit you will be putting?", "questionType": "INTEGER"},
+  {"questionId": 1012, "questionDetails": "Are u interested in buying a land and constructing?", "questionType": "TEXT","answers": ["Yes","No"]},
+  {"questionId": 1013, "questionDetails": "Are u interested in home and land packages?", "questionType": "TEXT","answers": ["Yes","No"]},
+
+  {"questionId": 1014, "questionDetails": "Do you have any kids?", "questionType": "TEXT","answers": ["Yes","No"]},
+  {"questionId": 1015, "questionDetails": "If yes, date of birth of first kid pls..", "questionType": "TEXT"},
+  {"questionId": 1016, "questionDetails": "If yes, date of birth of second kid pls..", "questionType": "TEXT"},
+  {"questionId": 1017, "questionDetails": "If yes, date of birth of third kid pls..", "questionType": "TEXT"},
+  {"questionId": 1018, "questionDetails": "If yes, date of birth of third kid pls..", "questionType": "TEXT"},
+  {"questionId": 1020, "questionDetails": "would u like to be near to the school, ie walkable 500m?", "questionType": "TEXT","answers": ["Yes","No"]},
+  {"questionId": 1021, "questionDetails": "Is it primary school? or High school?", "questionType": "TEXT","answers": ["Primary","High School","Both"]},
+  {"questionId": 1022, "questionDetails": "If kids going to or planning to go to uni, will they stay with you?", "questionType": "TEXT","answers": ["Yes","No"]},
+
+  {"questionId": 1023, "questionDetails": "What is your work location, suburb code pls...", "questionType": "TEXT"},
+  {"questionId": 1024, "questionDetails": "What is your normal transport?", "questionType": "TEXT","answers": ["Train","Bus","Car"]},
+  {"questionId": 1025, "questionDetails": "What is your Partners work location suburb code?", "questionType": "TEXT"},
+  {"questionId": 1026, "questionDetails": "What is your partners transport?", "questionType": "TEXT","answers": ["Train","Bus","Car"]},
+
+  {"questionId": 1027, "questionDetails": "What is your preferred house?", "questionType": "TEXT","answers": ["Unit","Apartment","House","Acreage"]},
+  {"questionId": 1028, "questionDetails": "How many bed?", "questionType": "INTEGER","answers": ["1","2","3","4","5","6"]},
+  {"questionId": 1029, "questionDetails": "How many bath?", "questionType": "INTEGER","answers": ["1","2","3","4"]},
+  {"questionId": 1030, "questionDetails": "How many car space you need?", "questionType": "INTEGER","answers": ["1","2","3","4"]},
+  {"questionId": 1031, "questionDetails": "Backyard?", "questionType": "TEXT","answers": ["Yes","No"]},
+  {"questionId": 1032, "questionDetails": "Do you need a pool?", "questionType": "TEXT","answers": ["Yes","No"]},
+
+  {"questionId": 1033, "questionDetails": "When would you like to buy, in months?", "questionType": "INTEGER","answers": ["1","2","3","4","5","6"]},
+  {"questionId": 1034, "questionDetails": "When do you want to move in?", "questionType": "TEXT","answers": ["ASAP","1","2","3","4","5","6"]}
 ]

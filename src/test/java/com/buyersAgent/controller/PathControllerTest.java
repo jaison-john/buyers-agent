@@ -26,7 +26,7 @@ public class PathControllerTest extends BuyersAgentMainApplicationTest {
     public void testQuestionsGet() throws Exception {
         mockMvc.perform(get("/path/12")).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
-                .andExpect(jsonPath("$.pathId").value("12")).andExpect(jsonPath("$.pathStrategyProgram").value("abc"))
+                .andExpect(jsonPath("$.pathId").value("12"))//.andExpect(jsonPath("$.pathStrategyProgram").value("abc"))
                 .andExpect(jsonPath("$.questionIdList[0]").value("1003"));
 
     }
