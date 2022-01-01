@@ -11,14 +11,13 @@ public interface PathExecutionStrategy {
     }
 
     default public void loadPreviousAnswers(List<InteractionHistory> interactionHistoryList){
-        return;
     }
 
     default long skipCurrentPathTo(){
         return -1;
     }
 
-    default public List<Long> hideQuestions(){
+    default List<Long> hideQuestions(){
         return new ArrayList<Long>();
     }
 
