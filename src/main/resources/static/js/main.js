@@ -14,6 +14,10 @@ $(document).ready(function(){
     getCustomerSpecificActions();
   });
 
+  $("#getListings").click(function(){
+    getListingsOfInteractions();
+  });
+
 });
 
 function startNewConversation(){
@@ -226,5 +230,60 @@ function buildCustomerActionsOnScreen(customerAction,customerActionCount){
 
 	$(custActionHtmlId).append(prefix);
 	$(custActionHtmlId).append(' </div> </div>');
+
+}
+
+function getListingsOfInteractions(){
+
+	$.ajax({
+    'url': '/interaction/listingsForInteraction/' + interactionId,
+    'type': 'get',
+	'contentType': 'application/json',
+    'success': function(data) {
+		$("#listingsDiv").removeClass("d-none");
+		console.log("Actions List : " + JSON.stringify(data));
+
+		for(var listingCount=0; listingCount < data.length;listingCount++){
+			console.log("listing id is  " + data[listingCount].listingId);
+			buildListingOnScreen(data[listingCount],listingCount);
+		}
+    },
+	error: function (jqXHR, exception) {
+		console.log("Failure in getting Actions! ");
+    }
+  });
+}
+
+function buildListingOnScreen(listing,listingCount){
+
+	console.log("listing id is  " + listing.listingId);
+
+	$("#listingsDiv").append("<div id='listing_" + listingCount + "' class='card' </div>");
+	var listingHtmlId= '#listing_' + listingCount;
+
+	var prefix = "<div class='card-header'><button class='btn btn-link' data-toggle='collapse' data-target='#custAction_" + listingCount +  "_collapse'>";
+	prefix = prefix + "<i class='fa fa-plus'></i>" + listing.headline + " </button></div><div class='collapse show' id='custAction_" + listingCount + "_collapse' data-parent='#dummyActionsDiv'>";
+	prefix = prefix + "<div id='listing_" + listingCount + "_body' class='card-body'>";
+
+	prefix = prefix +  "<div id='listing_div_1002' class='form-group row border border-primary rounded'>";
+	prefix = prefix +  "<div class='col-sm-6'> <textarea id='listing_details_" + listingCount
+	+ "' type='text' class='md-textarea form-control' rows='3'>" + listing.description + "</textarea> ";
+    prefix = prefix +  "</div><div class='col-sm-6'>"
+
+	for(var appoinmentTimeListIndex=0;appoinmentTimeListIndex < listing.appointmentTimeList.length;appoinmentTimeListIndex++){
+		prefix = prefix +  "<div class='form-group form-inline'> <label for='AppoinmentStart_1'>Start</label>"
+		prefix = prefix +  "<input type='text' class='form-control' id='AppoinmentStart_" + appoinmentTimeListIndex
+			+ "' value='" + listing.appointmentTimeList[appoinmentTimeListIndex].startDateTime + "' placeholder='time'>";
+		prefix = prefix +  "<label for='AppoinmentEnd_1'>End</label>";
+		prefix = prefix +  "<input type='text' class='form-control' id='AppoinmentEnd_" + appoinmentTimeListIndex
+			+ "' value='" + listing.appointmentTimeList[appoinmentTimeListIndex].endDateTime + "' placeholder='time'>";
+		prefix = prefix +  "</div>";
+	}
+
+	+ "</div></div> ";
+
+
+	$(listingHtmlId).append(prefix);
+	$(listingHtmlId).append(' </div> </div>');
 
 }

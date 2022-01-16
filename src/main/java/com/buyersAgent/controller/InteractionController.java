@@ -1,9 +1,6 @@
 package com.buyersAgent.controller;
 
-import com.buyersAgent.model.CustomerAction;
-import com.buyersAgent.model.CustomerActionMatchStatus;
-import com.buyersAgent.model.Interaction;
-import com.buyersAgent.model.InteractionUpdate;
+import com.buyersAgent.model.*;
 import com.buyersAgent.service.InteractionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -40,5 +37,10 @@ public class InteractionController {
 	@PutMapping(value = "/updateInteraction")
 	public Interaction updateInteractionWithAnswer(@RequestBody InteractionUpdate interactionUpdate) {
 		return interactionService.updateInteractionByQuestion(interactionUpdate);
+	}
+
+	@GetMapping(value = "/listingsForInteraction/{id}", produces = "application/json")
+	public List<MatchingListing> getMatchingListing(@PathVariable("id") long id) {
+		return interactionService.getMatchingListings(id);
 	}
 }

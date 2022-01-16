@@ -10,7 +10,7 @@
   {"questionId": 1007, "questionDetails": "Please provide your spouses last name...", "questionType": "TEXT"},
 
   {"questionId": 1008, "questionDetails": "Are u a first home buyer, moving to a new house or investor?", "questionType": "TEXT","answers": ["First Home Buyer","Moving to a new house","Investor"]},
-  {"questionId": 1009, "questionDetails": "What are your preferred suburbs? Please give list of codes", "questionType": "TEXT"},
+  {"questionId": 1009, "questionDetails": "What are your preferred suburbs? Please give the suburb code of it", "questionType": "TEXT"},
 
   {"questionId": 1010, "questionDetails": "What is the price range you are looking to buy?", "questionType": "INTEGER"},
   {"questionId": 1011, "questionDetails": "How much deposit you will be putting?", "questionType": "INTEGER"},

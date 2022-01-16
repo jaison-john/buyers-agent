@@ -8,9 +8,16 @@ import com.buyersAgent.service.QuestionService;
 import com.buyersAgent.strategy.PathExecutionStrategy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.joda.time.format.DateTimeFormatter;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.api.ListingsApi;
+import org.openapitools.client.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import org.joda.time.format.DateTimeFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +28,7 @@ public class InteractionServiceImpl implements InteractionService {
     private static final Logger logger = LogManager.getLogger(InteractionServiceImpl.class);
     private final Map<Long,Interaction> interactionMap = new HashMap<>();
     private long lastInteractionId=0;
+    private final DateTimeFormatter inputFormatter = DateTimeFormat.forPattern("MM/dd/yyyy HH:mm:ss");
 
     @Autowired
     private QuestionService questionService;
@@ -166,5 +174,88 @@ public class InteractionServiceImpl implements InteractionService {
     @Override
     public List<CustomerActionMatchStatus> getCustomerActions(long interactionId) {
         return customerActionService.getPossibleActions(interactionMap.get(interactionId));
+    }
+
+
+    @Override
+    public List<MatchingListing> getMatchingListings(long interactionId) {
+        return getListingDetails(interactionId);
+    }
+
+    private List<MatchingListing> getListingDetails(long interactionId){
+        Interaction interaction = interactionMap.get(interactionId);
+
+        String suburbPostCode = "2762";
+        for(InteractionHistory history: interaction.getInteractionHistoryList()){
+            if(history.getQuestionId() == 1009) {//Suburb Question
+                suburbPostCode = history.getAnswer();
+            }
+        }
+        List<MatchingListing> matchingListings = new ArrayList<>();
+        ApiClient apiClient= createApiClient();
+        ListingsApi listingsApi = new ListingsApi();
+        listingsApi.setApiClient(apiClient);
+
+        /*
+        ListingsV1Listing listingsV1Listing = listingsApi.listingsGet(2017412596);
+        logger.error("ListingsV1Listing " + listingsV1Listing.toString());
+         */
+        DomainSearchServiceV2ModelDomainSearchWebApiV2ModelsSearchParameters domainSearchParameters = new DomainSearchServiceV2ModelDomainSearchWebApiV2ModelsSearchParameters();
+        DomainSearchServiceV2ModelDomainSearchWebApiV2ModelsSearchLocation locationsItem = new DomainSearchServiceV2ModelDomainSearchWebApiV2ModelsSearchLocation();
+        locationsItem.setPostCode(suburbPostCode);
+        domainSearchParameters.addLocationsItem(locationsItem);
+        ResponseEntity<List<DomainSearchServiceV2ModelDomainSearchContractsV2SearchResult>> responseEntity =
+                listingsApi.listingsDetailedResidentialSearchWithHttpInfo(domainSearchParameters);
+
+        logger.error("DomainSearchServiceV2ModelDomainSearchContractsV2SearchResult " + responseEntity.getBody().toString());
+
+        if(responseEntity.getStatusCode().is2xxSuccessful()){
+            for(DomainSearchServiceV2ModelDomainSearchContractsV2SearchResult result : responseEntity.getBody()){
+
+                if(result.getListing() != null){
+                    DomainSearchServiceV2ModelDomainSearchContractsV2PropertyListing domainListing = result.getListing();
+                    buildMatchingListing(matchingListings,domainListing);
+                }
+
+                if(result.getListings() != null){
+                    List<DomainSearchServiceV2ModelDomainSearchContractsV2PropertyListing> domainListings = result.getListings();
+                    for(DomainSearchServiceV2ModelDomainSearchContractsV2PropertyListing domainListing:domainListings){
+                        buildMatchingListing(matchingListings,domainListing);
+                    }
+                }
+
+            }
+        }
+        
+        return matchingListings;
+    }
+
+    private void buildMatchingListing(List<MatchingListing> matchingListings,DomainSearchServiceV2ModelDomainSearchContractsV2PropertyListing domainListing){
+        MatchingListing matchingListing = new MatchingListing();
+        matchingListing.setListingId(domainListing.getId().toString());
+        if(domainListing.getSummaryDescription().startsWith("<b></b><br />") == false)
+            matchingListing.setDescription(domainListing.getSummaryDescription());
+        else
+            matchingListing.setDescription(domainListing.getSummaryDescription().substring(13));
+
+        matchingListing.setHeadline(domainListing.getHeadline());
+        if(domainListing.getInspectionSchedule() != null && domainListing.getInspectionSchedule().getTimes()!=null){
+            for(DomainSearchServiceV2ModelDomainSearchContractsV2Inspection inspectionTime : domainListing.getInspectionSchedule().getTimes()){
+                AppointmentTime appointmentTime = new AppointmentTime();
+                //appointmentTime.setStartDateTime(inspectionTime.getOpeningTime().toString(inputFormat));
+                appointmentTime.setStartDateTime(inputFormatter.print(inspectionTime.getOpeningTime()));
+                appointmentTime.setEndDateTime(inputFormatter.print(inspectionTime.getClosingTime()));
+                matchingListing.getAppointmentTimeList().add(appointmentTime);
+            }
+        }
+
+        matchingListings.add(matchingListing);
+    }
+
+    private ApiClient createApiClient() {
+        ApiClient apiClient = new ApiClient();
+        apiClient.setBasePath("https://api.domain.com.au/");
+        apiClient.setApiKey("key_6a7a40bcbcd676098ce9280256e98b45");
+        return apiClient;
     }
 }
